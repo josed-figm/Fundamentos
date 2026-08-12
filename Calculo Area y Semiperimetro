@@ -1,0 +1,19 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+    float p,q,r,s,A;
+    cout<< "ingrese el valor del lado p:";
+    cin>>p;
+    cout<<endl<<"ingrese el valor del lado q:";
+    cin>> q;
+    cout<<endl<<"ingrese el valor del lado r:";
+    cin>> r;
+    s=(p+q+r)/2;
+    cout<<endl<<"el valor del semiperimetro es:"<<s;
+    A=sqrt(s*(s-p)*(s-q)*(s-r));
+    cout<<endl<<"el valor del Areas es:"<<A;
+    return 0;
+}
