@@ -1,0 +1,13 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    float r,a,p;
+    cout<<"Ingrese el radio del circulo: ";
+    cin>>r;
+    a=3.1416*r*r;
+    p=2*3.1416*r;
+    cout<<endl<<"El area e su circulo es: "<<a<<" y su perimetro es: "<<p;
+
+    return 0;
+}
