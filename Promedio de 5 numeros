@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    int r=0;
+    int n;
+    cout<<"Ingrese el primer numero: "<<endl;
+    cin>>n;
+    r=r+n;
+    cout<<"Ingrese el segundo numero: "<<endl;
+    cin>>n;
+    r=r+n;
+    cout<<"Ingrese el tercer numero: "<<endl;
+    cin>>n;
+    r=r+n;
+    cout<<"Ingrese el cuarto numero: "<<endl;
+    cin>>n;
+    r=r+n;
+    cout<<"Ingrese el quinto numero: "<<endl;
+    cin>>n;
+    r=r+n;
+    r=r/5;
+    cout<<"El proemdio entero es: "<<r;
+    return 0;
+}
