@@ -1,0 +1,16 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    int A,B,I;
+    cout<<"introducir el valor de A"<<endl;
+    cin>>A;
+    cout<<"introducir el valor de B"<<endl;
+    cin>>B;
+    I=A;
+    A=B;
+    B=I;
+    cout<<"Los valores intercambiados son:"<<endl;
+    cout<<"A: "<<A<<" y B: "<<B;
+    return 0;
+}
