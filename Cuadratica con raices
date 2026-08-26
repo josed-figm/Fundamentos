@@ -30,3 +30,9 @@ int main()
                 cout<<"El valor de la primer raiz x2 es: "<<x1<<"-"<<x2<<"i";}
             }
         
+                
+        
+
+
+    return 0;
+}
