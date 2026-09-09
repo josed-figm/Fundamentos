@@ -1,0 +1,65 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int opcion,cantidad,canham=0,canhamq=0,canpapas=0,cansoda=0;
+    double cuentaparcial,totalham=0,totalhamq=0,totalpapas=0,totalsoda=0;
+    cout<<"Bienvenido al restaurante..."<<endl;
+    do {
+        cout<<"------------------Menu------------------"<<endl;
+        cout<<"1.- Hamburguesa               3 Bs"<<endl;
+        cout<<"2.- Hamburguesa con queso     5 Bs"<<endl;
+        cout<<"3.- Papas fritas              2 Bs"<<endl;
+        cout<<"4.- Soda                      2,5 Bs "<<endl;
+        cout<<"0.- Salir"<<endl;
+        cout<<"Que deseas pedir? ";
+        cin>>opcion;
+            switch(opcion){
+               case 1:
+                 cout<<"Cuantas Hamburguesas desea? ";cin>>cantidad;
+                 canham=canham+cantidad;
+                 cuentaparcial=cantidad*3;
+                 totalham=totalham+cuentaparcial;
+             
+                 break;
+               case 2:
+                 cout<<"Cuantas Hamburguesas con queso desea? ";cin>>cantidad;
+                 canhamq=canhamq+cantidad;
+                 cuentaparcial=cantidad*5;
+                 totalhamq=totalhamq+cuentaparcial;
+        
+                 break;
+               case 3:
+                 cout<<"Cuantas Papas fritas desea? ";cin>>cantidad;
+                 canpapas=canpapas+cantidad;
+                 cuentaparcial=cantidad*2;
+                 totalpapas=totalpapas+cuentaparcial;
+         
+                 break;
+               case 4:
+                 cout<<"Cuantas sodas desea? ";cin>>cantidad;
+                 cansoda=cansoda+cantidad;
+                 cuentaparcial=cantidad*2.5;
+                 totalsoda=totalsoda+cuentaparcial;
+                 
+                 break;
+               case 0:
+                 cout<<"Has salido del Menu"<<endl;
+                 break;
+               default:
+                 cout<<"Opcion invalida "<<endl;
+                 return 0;
+                }
+    } while (opcion !=0 );
+    cout<<" ITEM					CANTIDAD 		TOTAL PARCIAL"<<endl;
+	cout<<"	Hamburguesas  (3Bs)			"<<canham	<<"\t"<<			totalham<<endl;
+	cout<<"	Hamburguesas  con queso ( 5Bs)		"<<canhamq	<<"\t"<<		totalhamq<<endl;
+	cout<<"	Papas fritas ( 2Bs)				"<<canpapas	<<"\t"<<		totalpapas<<endl;
+	cout<<"	Soda	(2.5Bs)					"<<cansoda	<<"\t"<<		totalsoda<<endl;
+	cout<<"T O T A L					"<<canham+canhamq+canpapas+cansoda	<<"\t"<<		totalham+totalhamq+totalpapas+totalsoda<<endl;
+
+    cout<<"El total de tu cuenta es: "<<cuentaparcial<<" Bs.";
+    return 0;
+}
