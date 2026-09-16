@@ -1,0 +1,18 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int cont=0,n,suma=0;
+    cout<<"Ingrese cuantos elementos vamos a sumar: ";
+    cin>>n;
+    while (cont<n){
+        cont= cont +1;
+        suma= suma + cont*cont;
+        cout<<cont<<endl;
+    }
+        cout<<"la suma sera: "<<suma;
+    
+
+    return 0;
+}
