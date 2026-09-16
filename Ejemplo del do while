@@ -1,0 +1,13 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    // Ejemplo do while
+    int cont=0;
+    do {
+        cont= cont +1; // cont++
+        cout<< cont<<", ";
+        
+    } while (cont !=10);
+    return 0;
+}
