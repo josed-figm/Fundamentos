@@ -1,0 +1,11 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    // Ejemplo for
+    int cont=0;
+    for (cont=1;cont<=10;cont++)
+        cout<<cont<<", ";
+    return 0;
+}
