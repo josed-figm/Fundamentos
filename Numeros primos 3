@@ -1,0 +1,35 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+    string c;
+    do{
+        int n,cont=2, cont2=0;
+        bool flag = true;
+        cout<<"Ingresar el numero hasta donde llegar: ";
+        cin>>n;
+        while (cont2 < n)
+        {
+            flag = true;
+            for (int i=2;i<=sqrt(cont);i++)
+                if (cont%i==0){
+                flag= false;
+                break;
+                 }
+            if (flag)
+            {
+                cout<<cont<<",";                
+                cont2++;
+            }
+            cont++;
+        
+        }
+        cout<<endl<<"Desea ingresar otro numero?(s/n)";
+        cin>>c;
+    } while (c == "s");
+    cout<<endl<<"Programa terminado"<<endl;
+    
+    return 0;
+}
