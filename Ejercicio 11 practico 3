@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int p1, p2, r;
+    cout << "Ingresa el primer digito: ";
+    cin >> p1;
+    cout << "Ingresa el segundo digito: ";
+    cin >> p2;
+    do {
+        r = p1 % p2;
+        p1 = p2;
+        p2 = r;
+    } while (r != 0);
+    cout << "El MCD sera: " << p1<<endl;
+
+    return 0;
+}
