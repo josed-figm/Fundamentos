@@ -1,0 +1,109 @@
+#include <iostream>
+#define MAX 100
+using namespace std;
+
+void cargar(int a[], int tam);
+void mostrar(int a[], int tam);
+void burbuja(int a[], int tam);
+void invertirArreglo(const int origen[], int destino[], int tamanio);
+
+int main() {
+    int opcion, n = 0;
+    int v[MAX];
+    int v_invertido[MAX]; // Arreglo auxiliar para guardar la inversión
+    bool cargado = false;
+
+    do {
+        cout << "\n     Menu     " << endl;
+        cout << "1. Cargar" << endl;
+        cout << "2. Mostrar" << endl;
+        cout << "3. Clasificar (Burbuja)" << endl;
+        cout << "4. Invertir" << endl;
+        cout << "0. Salir" << endl;
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+
+        switch (opcion) {
+        case 1:
+            do {
+                cout << "Cuantos elementos quiere? (1 - " << MAX << "): ";
+                cin >> n;
+            } while (n > MAX || n <= 0);
+            
+            cargar(v, n);
+            cargado = true;
+            break;
+
+        case 2:
+            if (cargado) {
+                mostrar(v, n);
+            } else {
+                cout << "Primero debe cargar los datos (Opcion 1)." << endl;
+            }
+            break;
+
+        case 3:
+            if (cargado) {
+                burbuja(v, n);
+                cout << "Arreglo ordenado con exito." << endl;
+            } else {
+                cout << "Primero debe cargar los datos (Opcion 1)." << endl;
+            }
+            break;
+
+        case 4:
+            if (cargado) {
+                invertirArreglo(v, v_invertido, n);
+                cout << "Arreglo invertido guardado con exito. Mostrando resultado:" << endl;
+                mostrar(v_invertido, n);
+            } else {
+                cout << "Primero debe cargar los datos (Opcion 1)." << endl;
+            }
+            break;
+
+        case 0:
+            cout << "Saliendo del programa..." << endl;
+            break;
+
+        default:
+            cout << "ERROR: Opcion invalida." << endl;
+            break;
+        }
+    } while (opcion != 0);
+
+    return 0;
+}
+
+void cargar(int a[], int tam) {
+    for (int i = 0; i < tam; i++) {
+        cout << "v[" << i << "]: ";
+        cin >> a[i];
+    }
+}
+
+void mostrar(int a[], int tam) {
+    cout << "Elementos: ";
+    for (int i = 0; i < tam; i++) {
+        cout << "v[" << i << "]=" << a[i] << " ";
+    }
+    cout << endl;
+}
+
+void burbuja(int a[], int tam) {
+    int aux;
+    for (int i = 0; i < tam - 1; i++) {
+        for (int j = i + 1; j < tam; j++) {
+            if (a[i] > a[j]) {
+                aux = a[j];
+                a[j] = a[i];
+                a[i] = aux;
+            }
+        }
+    }
+}
+
+void invertirArreglo(const int origen[], int destino[], int tamanio) {
+    for (int i = 0; i < tamanio; i++) {
+        destino[i] = origen[tamanio - 1 - i];
+    }
+}
