@@ -1,0 +1,317 @@
+#include <iostream>
+using namespace std;
+#include <string>
+#include <vector>
+#include <cctype>
+//vectores
+vector<vector<string>> usuarios;
+vector<vector<string>> personas;
+//prototipo
+bool es_digito_str(const string& s);
+bool validar_fecha(string fecha);
+void registrar_usuario();
+void listar_usuarios();
+void modificar_usuario();
+void borrar_usuario();
+bool login();
+void registrar_persona();
+void listar_personas();
+void borrar_persona();
+void modificar_persona();
+void menu_personas();
+//main
+int main() {
+	string op;
+	while (true) {
+		cout << "===== Sistema Login=====" << endl;
+		cout << "1. Registrar Usuario" << endl;
+		cout << "2. Listar usuarios" << endl;
+		cout << "3. Modificar usuarios" << endl;
+		cout << "4. Borrar usuario" << endl;
+		cout << "5. Iniciar sesion" << endl;
+		cout << "6. Salir" << endl;
+
+		cout << "Seleccione una opcion: ";
+		getline(cin, op);
+		
+		if (op == "1") {
+			registrar_usuario();
+		}
+		else if (op == "2") {
+			listar_usuarios();
+		}
+		else if (op == "3") {
+			modificar_usuario();
+		}
+		else if (op == "4") {
+			borrar_usuario();
+		}
+		else if (op == "5") {
+			if (login()) {
+				menu_personas();
+			}
+		}
+		else if (op == "6") { cout << "Gracias por utiizar el sistema."; break; }
+		else cout << "Opcion incorrecta."<<endl;
+	}
+	return 0;
+}
+//Funciones
+bool es_digito_str(const string& s) {
+	if (s.empty()) return false;
+	for (char c : s) {
+		if (!isdigit(c)) return false;
+	}
+	return true;
+}
+bool validar_fecha(string fecha) {
+	if (fecha.length() != 10 || fecha[2] != '/' || fecha[5] != '/') {
+		return false;
+	}
+	string d_str = fecha.substr(0, 2);
+	string m_str = fecha.substr(3, 2);
+	string a_str = fecha.substr(6, 4);
+	if (!es_digito_str(d_str) || !es_digito_str(m_str) || !es_digito_str(a_str)) {
+		return false;
+	}
+
+	int dia = stoi(d_str);
+	int mes = stoi(m_str);
+	int anio = stoi(a_str);
+
+	if (anio < 1 || mes < 1 || mes > 12) {
+		return false;
+	}
+
+	int dias = 0;
+	if (mes == 2) {
+		if (anio % 400 == 0 || (anio % 4 == 0 && anio % 100 != 0)) {
+			dias = 29;
+		}
+		else {
+			dias = 28;
+		}
+	}
+	else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+		dias = 30;
+	}
+	else {
+		dias = 31;
+	}
+
+	if (dia < 1 || dia > dias) {
+		return false;
+	}
+
+	return true;
+}
+
+void registrar_usuario() {
+	cout << "--- REGISTRAR USUARIO ---" << endl;
+	string usuario, clave;
+	cout << "Ingrese usuario: ";
+	getline(cin, usuario);
+
+	for (const auto& u : usuarios) {
+		if (u[0] == usuario) {
+			cout << "El usuario ya existe." << endl;
+			return;
+		}
+	}
+
+	cout << "Ingrese contraseña: ";
+	getline(cin, clave);
+	usuarios.push_back({ usuario, clave });
+	cout << "Usuario registrado correctamente." << endl;
+}
+void listar_usuarios() {
+	cout << "--- LISTA DE USUARIOS ---" << endl;
+
+	if (usuarios.empty()) {
+		cout << "No hay usuarios registrados." << endl;
+	}
+	else {
+		for (size_t i = 0; i < usuarios.size(); ++i) {
+			cout << "Usuario Nro: " << i + 1 << endl;
+			cout << "Usuario: " << usuarios[i][0] << endl;
+		}
+	}
+}
+void modificar_usuario() {
+	cout << "--- MODIFICAR USUARIO ---" << endl;
+	string nombre;
+	cout << "Ingrese el usuario que desea modificar: ";
+	getline(cin, nombre);
+
+	for (auto& u : usuarios) {
+		if (u[0] == nombre) {
+			string nuevo_nombre, nueva_clave;
+			cout << "Nuevo nombre de usuario: ";
+			getline(cin, nuevo_nombre);
+			cout << "Nueva contraseña: ";
+			getline(cin, nueva_clave);
+
+			u[0] = nuevo_nombre;
+			u[1] = nueva_clave;
+			cout << "Usuario modificado correctamente." << endl;
+			return;
+		}
+	}
+
+	cout << "Usuario no encontrado." << endl;
+}
+void borrar_usuario() {
+	cout << "--- BORRAR USUARIO ---" << endl;
+	string nombre;
+	cout << "Ingrese el usuario que desea eliminar: ";
+	getline(cin, nombre);
+
+	for (auto it = usuarios.begin(); it != usuarios.end(); ++it) {
+		if ((*it)[0] == nombre) {
+			usuarios.erase(it);
+			cout << "Usuario eliminado correctamente." << endl;
+			return;
+		}
+	}
+
+	cout << "Usuario no encontrado." << endl;
+}
+bool login() {
+	cout << "--- INICIAR SESION ---" << endl;
+	string usuario, clave;
+	cout << "Usuario: ";
+	getline(cin, usuario);
+	cout << "Contraseña: ";
+	getline(cin, clave);
+
+	for (const auto& u : usuarios) {
+		if (u[0] == usuario && u[1] == clave) {
+			cout << "Bienvenido " << usuario << endl;
+			return true;
+		}
+	}
+
+	cout << "Usuario o contraseña incorrectos." << endl;
+	return false;
+}
+void registrar_persona() {
+	cout << "--- REGISTRAR PERSONA ---" << endl;
+
+	string nombre, fecha, ci, direccion, telefono;
+
+	cout << "Nombre: ";
+	getline(cin, nombre);
+
+	cout << "Fecha de nacimiento (DD/MM/AAAA): ";
+	getline(cin, fecha);
+
+	while (!validar_fecha(fecha)) {
+		cout << "Fecha incorrecta. Ingrese una fecha real." << endl;
+		cout << "Fecha de nacimiento (DD/MM/AAAA): ";
+		getline(cin, fecha);
+	}
+
+	cout << "CI: ";
+	getline(cin, ci);
+	cout << "Direccion: ";
+	getline(cin, direccion);
+	cout << "Telefono: ";
+	getline(cin, telefono);
+
+	personas.push_back({ nombre, fecha, ci, direccion, telefono });
+	cout << "Persona registrada correctamente." << endl;
+}
+void listar_personas() {
+	cout << "--- LISTA DE PERSONAS ---" << endl;
+
+	if (personas.empty()) {
+		cout << "No existen personas registradas." << endl;
+	}
+	else {
+		for (size_t i = 0; i < personas.size(); ++i) {
+			cout << "Persona Nro: " << i + 1 << endl;
+			cout << "Nombre: " << personas[i][0] << endl;
+			cout << "Fecha de nacimiento: " << personas[i][1] << endl;
+			cout << "CI: " << personas[i][2] << endl;
+			cout << "Direccion: " << personas[i][3] << endl;
+			cout << "Telefono: " << personas[i][4] << endl;
+		}
+	}
+}
+void borrar_persona() {
+	cout << "---BORRAR PERSONA---" << endl;
+	string ci;
+	cout << "Ingrese el CI: " << endl;
+	getline(cin, ci);
+
+	for (auto it = personas.begin(); it != personas.end(); ++it) {
+		personas.erase(it);
+		cout << "Persona eliminada correctamente."<<endl;
+		return;
+	}
+	cout << "Persona no encontrada." << endl;
+}
+void modificar_persona() {
+	cout << "---MODIFICAR PERSONA---" << endl;
+	string ci_buscar;
+	cout << "Ingrese el CI de la persona: ";
+	getline(cin, ci_buscar);
+
+	for (auto& p : personas) {
+		if (p[2] == ci_buscar) {
+			cout << "Nuevo nombre: ";
+			getline(cin,p[0]);
+
+			string fecha;
+			cout << "Nueva fecha de nacimiento (DD/MM/AAAA): ";
+			getline(cin, fecha);
+
+			while (!validar_fecha(fecha)) {
+				cout << "Fecha incorrecta. Ingrese una fecha real." << endl;
+				cout << "Nueva fecha de nacimiento (DD/MM/AAAA): ";
+				getline(cin, fecha);
+			}
+			p[1] = fecha;
+			cout << "Nuevo CI: ";
+			getline(cin, p[2]);
+			cout << "Nueva direccion: ";
+			getline(cin, p[3]);
+			cout << "Nuevo telefono: ";
+			getline(cin, p[4]);
+
+			cout << "Persona modificada correctamente." << endl;
+			return;
+		}
+	}
+	cout << "Persona no encontrada."<<endl;
+}
+void menu_personas() {
+	string op;
+	while (true) {
+		cout << "=====MENU DE PERSONAS=====" << endl;
+		cout << "1. Registrar persona" << endl;
+		cout << "2. Listar personas" << endl;
+		cout << "3. Modificar personas" << endl;
+		cout << "4. Borrar persona" << endl;
+		cout << "5. Cerrar sesion" << endl;
+		cout << "Seleccione una opcion: ";
+		getline(cin, op);
+		if (op == "1") {
+			registrar_persona();
+		}
+		else if (op == "2") {
+			listar_personas();
+		}
+		else if (op == "3") {
+			modificar_persona();
+		}
+		else if (op == "4") {
+			borrar_persona();
+		}
+		else if (op == "5") {
+			cout << "Sesion cerrada." << endl;
+		}
+		else cout << "Opcion incorrecta." << endl;
+	   
+	}
+}
