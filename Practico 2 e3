@@ -1,0 +1,15 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+   int n, suma=0, cont=0;
+   cout<<"Ingrese el valor de n numeros que desea sumar: ";
+   cin>>n;
+   while(cont<n){
+       cont=cont + 1;
+       suma= suma + cont*cont;
+       cout<<cont<<" "<<endl;
+   }
+   cout<<"la suma de los cuadrados es: "<<suma;
+    return 0;
+}
